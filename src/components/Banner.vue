@@ -12,12 +12,20 @@
 
 <style scoped>
     #mainBanner {
-        background-image: url('../img/burguer.jpg');
-        background-position: 0 - 250px;
+        background-image: url("../../public/img/burguer.jpg");
+        background-position: 0 ;
         background-size: cover;
-        height: 500px;
+        height: 625px;
         display: flex;
         align-items: center;
         justify-content: flex-start;
+    }
+
+    #mainBanner h1 {
+        color: #fff;
+        text-align: center;
+        font-size: 60px;
+        background-color: #222;
+        padding: 20px 40px;
     }
 </style>
