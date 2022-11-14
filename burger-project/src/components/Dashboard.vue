@@ -11,21 +11,24 @@
             </div>
         </div>
         <div id="burgerTableRows">
-            <div class="burgerTableRow">
-                <div class="orderNumber">1</div>
-                <div>João</div>
-                <div>Pao</div>
-                <div>Carne</div>
+            <div class="burgerTableRow" v-for="burger in burgers" :key="burger.id">
+                <div class="orderNumber"> {{ burger.id }} </div>
+                <div> {{ burger.nome }} </div>
+                <div> {{ burger.pao }} </div>
+                <div> {{ burger.carne }} </div>
                 <div>
                     <ul>
-                        <li>Opcional</li>
+                        <li v-for="(opcional, index) in burger.opcionais" :key="index"> {{ opcional }} </li>
                     </ul>
                 </div>
                 <div>
                     <select name="status" class="status">
                         <option value="">Selecione</option>
+                        <option v-for="s in status" :key="s.id" value="s.tipo" :selected="burger.status == s.tipo"> {{
+                                s.tipo
+                        }} </option>
                     </select>
-                    <button class="deleteBtn">Cancelar</button>
+                    <button class="deleteBtn" @click="deleteBurger(burger.id)">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -34,7 +37,45 @@
 
 <script>
 export default {
-    name: "Dashboard"
+    name: "Dashboard",
+    data() {
+        return {
+            burgers: null,
+            burgerId: null,
+            status: []
+        }
+    },
+    methods: {
+        async getPedidos() {
+            const req = await fetch("http://localhost:3000/burgers");
+
+            const data = await req.json();
+
+            this.burgers = data;
+
+            // resgatar os status
+            this.getStatus();
+        },
+        async getStatus() {
+            const req = await fetch("http://localhost:3000/status");
+
+            const data = await req.json();
+
+            this.status = data;
+        },
+        async deleteBurger(id) {
+            const req = await fetch(`http://localhost:3000/burgers/${id}`, {
+                method: "DELETE"
+            });
+
+            const res = await req.json();
+            
+            this.getPedidos();
+        }
+    },
+    mounted() {
+        this.getPedidos();
+    }
 }
 </script>
 
