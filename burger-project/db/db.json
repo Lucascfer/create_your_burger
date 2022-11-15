@@ -77,5 +77,21 @@
       "tipo": "Finalizado"
     }
   ],
-  "burgers": []
+  "burgers": [
+    {
+      "nome": "Lucas",
+      "pao": "Parmesão e Orégano",
+      "carne": "Alcatra",
+      "opcionais": [
+        "Salame",
+        "Cebola roxa",
+        "Bacon",
+        "Cheddar",
+        "Tomate",
+        "Pepino"
+      ],
+      "status": "Finalizado",
+      "id": 1
+    }
+  ]
 }
